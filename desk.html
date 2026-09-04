@@ -1,0 +1,1138 @@
+<title>Chamaria Projects Desk</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#EFF3F2;
+  --surface:#FFFFFF;
+  --surface-2:#E7ECEB;
+  --line:#D2DAD9;
+  --line-soft:#E2E8E7;
+  --ink:#0F1A1B;
+  --ink-2:#485455;
+  --ink-3:#6F7C7C;
+  --accent:#0F5257;
+  --accent-2:#0B3E42;
+  --accent-soft:#DCEAEA;
+  --on-accent:#FFFFFF;
+  --brass:#8A5A12;
+  --brass-soft:#F6EAD3;
+  --good:#2C6E49;
+  --good-soft:#DDEFE3;
+  --crit:#A32C22;
+  --crit-soft:#F7E0DD;
+  --shadow:0 1px 2px rgba(15,26,27,.05), 0 10px 26px -16px rgba(15,26,27,.35);
+  --radius:10px;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --sans:"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --cond:"IBM Plex Sans Condensed", "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0A1011;
+    --surface:#121B1C;
+    --surface-2:#1A2526;
+    --line:#273435;
+    --line-soft:#1F2B2C;
+    --ink:#E5EDEC;
+    --ink-2:#A2B0AF;
+    --ink-3:#7A8786;
+    --accent:#63BDB6;
+    --accent-2:#8AD3CC;
+    --accent-soft:#12312F;
+    --on-accent:#07201F;
+    --brass:#D9A441;
+    --brass-soft:#33270E;
+    --good:#6DBF8C;
+    --good-soft:#152F20;
+    --crit:#E8877B;
+    --crit-soft:#341B18;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 12px 28px -18px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0A1011;
+  --surface:#121B1C;
+  --surface-2:#1A2526;
+  --line:#273435;
+  --line-soft:#1F2B2C;
+  --ink:#E5EDEC;
+  --ink-2:#A2B0AF;
+  --ink-3:#7A8786;
+  --accent:#63BDB6;
+  --accent-2:#8AD3CC;
+  --accent-soft:#12312F;
+  --on-accent:#07201F;
+  --brass:#D9A441;
+  --brass-soft:#33270E;
+  --good:#6DBF8C;
+  --good-soft:#152F20;
+  --crit:#E8877B;
+  --crit-soft:#341B18;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 12px 28px -18px rgba(0,0,0,.9);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:14px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--cond); margin:0; text-wrap:balance; letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+
+/* masthead */
+.masthead{background:var(--surface); border-bottom:1px solid var(--line)}
+.mast-inner{
+  max-width:1180px; margin:0 auto; padding:22px 24px 18px;
+  display:flex; gap:28px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+}
+.eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:6px;
+}
+.masthead h1{font-size:30px; font-weight:700; line-height:1.1}
+.mast-sub{color:var(--ink-2); margin-top:6px; max-width:54ch}
+.mast-me{display:flex; flex-direction:column; gap:6px; min-width:238px}
+.field-label{font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3)}
+.me-meta{font-size:12.5px; color:var(--ink-2)}
+.sync{display:flex; align-items:center; gap:7px; font-size:12px; color:var(--ink-3); margin-top:2px}
+.sync .dot{width:7px; height:7px; border-radius:50%; background:var(--ink-3); flex:none}
+.sync.on .dot{background:var(--good)}
+.sync.off .dot{background:var(--crit)}
+
+/* tabs */
+.tabs{position:sticky; top:0; z-index:20; background:var(--surface); border-bottom:1px solid var(--line)}
+.tabs-inner{max-width:1180px; margin:0 auto; padding:0 24px; display:flex; gap:2px; overflow-x:auto}
+.tab{
+  background:none; border:0; border-bottom:2px solid transparent; cursor:pointer;
+  padding:11px 13px; font-family:var(--cond); font-size:14.5px; font-weight:600;
+  color:var(--ink-3); white-space:nowrap; display:flex; align-items:center; gap:7px;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+.tab .count{
+  font-family:var(--mono); font-size:10.5px; font-weight:600; padding:1px 6px; border-radius:20px;
+  background:var(--surface-2); color:var(--ink-2);
+}
+.tab .count.hot{background:var(--brass-soft); color:var(--brass)}
+
+/* layout */
+main{max-width:1180px; margin:0 auto; padding:22px 24px 56px; display:flex; flex-direction:column; gap:22px}
+.section{display:flex; flex-direction:column; gap:12px}
+.section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap}
+.section-head h2{font-size:18px; font-weight:600}
+.section-note{font-size:12.5px; color:var(--ink-3)}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius)}
+.panel-pad{padding:16px 18px}
+
+/* metric strip */
+.strip{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); overflow:hidden;
+}
+.metric{padding:14px 16px; border-right:1px solid var(--line-soft); display:flex; flex-direction:column; gap:3px}
+.metric:last-child{border-right:0}
+.metric .m-label{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+.metric .m-value{font-family:var(--cond); font-size:26px; font-weight:600; font-variant-numeric:tabular-nums; line-height:1.15}
+.metric .m-sub{font-size:12px; color:var(--ink-3)}
+.metric.alert .m-value{color:var(--brass)}
+.metric.crit .m-value{color:var(--crit)}
+
+/* chips */
+.chip{
+  display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:20px;
+  font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
+  background:var(--surface-2); color:var(--ink-2); white-space:nowrap;
+}
+.chip.good{background:var(--good-soft); color:var(--good)}
+.chip.wait{background:var(--brass-soft); color:var(--brass)}
+.chip.bad{background:var(--crit-soft); color:var(--crit)}
+.chip.acc{background:var(--accent-soft); color:var(--accent)}
+.code{font-family:var(--mono); font-size:11.5px; color:var(--ink-3); letter-spacing:.03em}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* avatars */
+.av{
+  width:26px; height:26px; border-radius:50%; flex:none;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:10px; font-weight:600;
+  border:1px solid var(--line);
+}
+.av.sm{width:21px; height:21px; font-size:9px}
+.av.lg{width:38px; height:38px; font-size:13px}
+.who{display:inline-flex; align-items:center; gap:7px}
+.who .nm{font-weight:600; font-size:13px}
+.stack{display:flex}
+.stack .av{margin-left:-6px; box-shadow:0 0 0 2px var(--surface)}
+.stack .av:first-child{margin-left:0}
+
+/* forms */
+.input,.select,.area{
+  width:100%; background:var(--surface); color:var(--ink);
+  border:1px solid var(--line); border-radius:7px; padding:7px 9px; font:inherit; font-size:13px;
+}
+.area{min-height:62px; resize:vertical; line-height:1.45}
+.input:focus,.select:focus,.area:focus{border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-soft)}
+.form-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:12px}
+.f{display:flex; flex-direction:column; gap:4px}
+.f.wide{grid-column:1/-1}
+.hint{font-size:11.5px; color:var(--ink-3)}
+.btn{
+  border:1px solid var(--line); background:var(--surface); color:var(--ink);
+  border-radius:7px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-2); border-color:var(--accent-2)}
+.btn.ghost{border-color:transparent; background:transparent; color:var(--ink-2)}
+.btn.ghost:hover{background:var(--surface-2); color:var(--ink)}
+.btn.ok{border-color:var(--good); color:var(--good)}
+.btn.ok:hover{background:var(--good-soft)}
+.btn.no{border-color:var(--crit); color:var(--crit)}
+.btn.no:hover{background:var(--crit-soft)}
+.btn.sm{padding:4px 9px; font-size:12px; border-radius:6px}
+.btn[disabled]{opacity:.42; cursor:not-allowed}
+.btn-row{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+
+/* progress */
+.bar{height:6px; border-radius:20px; background:var(--surface-2); overflow:hidden; flex:1; min-width:56px}
+.bar span{display:block; height:100%; background:var(--accent); border-radius:20px}
+.bar.brass span{background:var(--brass)}
+.bar.good span{background:var(--good)}
+.bar-row{display:flex; align-items:center; gap:9px}
+.pct{font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--ink-2); min-width:34px; text-align:right}
+
+/* project rows */
+.proj{border-bottom:1px solid var(--line-soft)}
+.proj:last-child{border-bottom:0}
+.proj-top{padding:14px 18px 10px; display:grid; grid-template-columns:minmax(220px,2.2fr) 1fr 1fr minmax(140px,1.1fr); gap:16px; align-items:center}
+.proj-name{font-family:var(--cond); font-size:16.5px; font-weight:600; line-height:1.2}
+.proj-meta{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:5px}
+.kv{display:flex; flex-direction:column; gap:2px}
+.kv .k{font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3)}
+.kv .v{font-size:13px}
+.proj-members{padding:2px 18px 15px; display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:7px 24px}
+.pm{display:flex; align-items:center; gap:9px; font-size:12.5px}
+.pm .pm-name{flex:none; width:108px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink-2)}
+.pm .pm-when{font-family:var(--mono); font-size:10.5px; color:var(--ink-3); white-space:nowrap; min-width:64px; text-align:right}
+.pm-none{font-size:12.5px; color:var(--ink-3); font-style:italic}
+
+/* lists */
+.rows{display:flex; flex-direction:column}
+.row{padding:12px 18px; border-bottom:1px solid var(--line-soft); display:flex; gap:14px; align-items:flex-start}
+.row:last-child{border-bottom:0}
+.row-main{flex:1; min-width:0; display:flex; flex-direction:column; gap:5px}
+.row-title{font-weight:600; font-size:14px; line-height:1.35}
+.row-sub{font-size:12.5px; color:var(--ink-3); display:flex; gap:9px; flex-wrap:wrap; align-items:center}
+.row-body{font-size:13px; color:var(--ink-2); line-height:1.5; max-width:80ch}
+.row-side{display:flex; flex-direction:column; align-items:flex-end; gap:7px; flex:none}
+.day-head{
+  padding:9px 18px; background:var(--surface-2); border-bottom:1px solid var(--line-soft);
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+}
+.day-head .d{font-family:var(--cond); font-weight:600; font-size:14px}
+.day-head .h{font-family:var(--mono); font-size:11.5px; color:var(--ink-3)}
+.blocker{
+  display:flex; gap:7px; align-items:flex-start; font-size:12.5px; color:var(--crit);
+  background:var(--crit-soft); border-radius:6px; padding:6px 9px; max-width:80ch;
+}
+.empty{padding:28px 18px; text-align:center; color:var(--ink-3); font-size:13px}
+
+/* decisions */
+.dgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px}
+.dcard{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); display:flex; flex-direction:column}
+.dcard.pending{border-left:3px solid var(--brass)}
+.dcard.approved{border-left:3px solid var(--good)}
+.dcard.rejected{border-left:3px solid var(--crit)}
+.dcard.changes{border-left:3px solid var(--accent)}
+.dcard-head{padding:13px 15px 0; display:flex; justify-content:space-between; gap:10px; align-items:flex-start}
+.dcard h3{font-size:15.5px; font-weight:600; line-height:1.28}
+.dcard-body{padding:9px 15px 13px; display:flex; flex-direction:column; gap:9px}
+.opts{margin:0; padding-left:17px; display:flex; flex-direction:column; gap:3px; font-size:12.5px; color:var(--ink-2)}
+.rec{font-size:12.5px; color:var(--ink-2); border-left:2px solid var(--accent); padding-left:9px}
+.verdict{font-size:12.5px; padding:8px 10px; border-radius:7px; background:var(--surface-2); color:var(--ink-2); line-height:1.5}
+.dcard-foot{padding:10px 15px; border-top:1px solid var(--line-soft); display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+
+/* team */
+.tgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(252px,1fr)); gap:14px}
+.tcard{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:15px 16px; display:flex; flex-direction:column; gap:11px}
+.tcard-top{display:flex; gap:11px; align-items:center}
+.tstats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; border-top:1px solid var(--line-soft); padding-top:10px}
+.tstat{display:flex; flex-direction:column; gap:1px}
+.tstat .n{font-family:var(--mono); font-size:17px; font-variant-numeric:tabular-nums}
+.tstat .l{font-size:10px; color:var(--ink-3); font-family:var(--mono); letter-spacing:.08em; text-transform:uppercase}
+
+/* misc */
+.notebar{
+  display:flex; gap:10px; align-items:flex-start; padding:10px 14px; border-radius:var(--radius);
+  background:var(--accent-soft); color:var(--accent); font-size:12.5px; line-height:1.5;
+}
+.notebar.warn{background:var(--crit-soft); color:var(--crit)}
+.toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end}
+.toolbar .f{min-width:148px}
+.foot{max-width:1180px; margin:0 auto; padding:0 24px 40px; color:var(--ink-3); font-size:12px; line-height:1.6; max-inline-size:none}
+.foot p{max-width:76ch}
+.toast{
+  position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(8px);
+  background:var(--ink); color:var(--ground); padding:9px 16px; border-radius:20px; font-size:13px;
+  box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; z-index:60;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important} }
+@media (max-width:760px){
+  .proj-top{grid-template-columns:1fr 1fr; gap:12px}
+  .masthead h1{font-size:24px}
+  .row{flex-direction:column; gap:9px}
+  .row-side{align-items:flex-start; flex-direction:row}
+}
+</style>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <div>
+      <div class="eyebrow">Chamaria Group &middot; New Projects Cell</div>
+      <h1>Projects Desk</h1>
+      <p class="mast-sub">Member-wise daily work, project documentation and management approvals &mdash; one shared board, updated live for the whole team.</p>
+    </div>
+    <div class="mast-me">
+      <label class="field-label" for="who">Working as</label>
+      <select id="who" class="select"><option>Loading team&hellip;</option></select>
+      <div class="me-meta" id="meMeta"></div>
+      <div class="sync" id="sync"><span class="dot"></span><span id="syncText">Connecting to the shared board&hellip;</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs"><div class="tabs-inner" id="tabs" role="tablist"></div></nav>
+<main id="app"><div class="panel"><div class="empty">Loading the board&hellip;</div></div></main>
+<footer class="foot">
+  <p id="footNote">Everything on this page is shared: what you add is visible to everyone in the team who opens this link. Approvals here are a working record, not a substitute for your signed approval note.</p>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- state ---------------- */
+var S = {
+  db:null, downloads:null, ready:false, dbFailed:false,
+  tab:"overview", me:null,
+  members:[], projects:[], work:[], docs:[], decisions:[],
+  loaded:{members:false, projects:false, work:false, docs:false, decisions:false},
+  draft:{}, open:{}, act:null, busy:false,
+  filters:{wMember:"all", wProject:"all", dStatus:"open", decStatus:"open"}
+};
+
+var DOC_TYPES = ["DPR","Feasibility note","BOQ","Vendor quotation","Drawing set","Site survey","Minutes of meeting","Statutory / NOC","Capex note","Contract draft"];
+var AV_COLORS = [
+  ["#DCEAEA","#0F5257"],["#F6EAD3","#8A5A12"],["#DDEFE3","#2C6E49"],
+  ["#E4E3F1","#403C7A"],["#F7E0DD","#A32C22"],["#DEE9F2","#1F4E72"]
+];
+
+/* ---------------- helpers ---------------- */
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+function $(id){ return document.getElementById(id); }
+function isoToday(){
+  var d = new Date(), p = function(n){ return (n<10?"0":"")+n; };
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());
+}
+function daysAgo(iso){
+  if(!iso) return 9999;
+  var a = new Date(iso+"T00:00:00"), b = new Date(isoToday()+"T00:00:00");
+  return Math.round((b-a)/86400000);
+}
+function fmtDate(iso){
+  if(!iso) return "—";
+  var M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var p = iso.split("-");
+  if(p.length !== 3) return iso;
+  return p[2]+" "+M[parseInt(p[1],10)-1]+" "+p[0];
+}
+function relDay(iso){
+  var d = daysAgo(iso);
+  if(d === 0) return "Today";
+  if(d === 1) return "Yesterday";
+  if(d < 0) return "In "+(-d)+" day"+(d===-1?"":"s");
+  if(d < 7) return d+" days ago";
+  return fmtDate(iso);
+}
+function num(n, dp){ var v = Number(n)||0; return dp ? v.toFixed(dp) : String(Math.round(v)); }
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove("show"); }, 2600);
+}
+function member(id){
+  for(var i=0;i<S.members.length;i++) if(S.members[i].id === id) return S.members[i];
+  return null;
+}
+function project(id){
+  for(var i=0;i<S.projects.length;i++) if(S.projects[i].id === id) return S.projects[i];
+  return null;
+}
+function mName(id){ var m = member(id); return m ? m.name : "Unassigned"; }
+function pName(id){ var p = project(id); return p ? p.name : "—"; }
+function pCode(id){ var p = project(id); return p ? p.code : ""; }
+function initials(name){
+  var parts = String(name||"?").trim().split(/\s+/);
+  return ((parts[0]||"?")[0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
+}
+function avatar(id, cls){
+  var m = member(id);
+  var idx = m ? (S.members.indexOf(m) % AV_COLORS.length) : 0;
+  var c = AV_COLORS[idx];
+  return '<span class="av '+(cls||"")+'" style="background:'+c[0]+';color:'+c[1]+'" title="'+esc(m?m.name:"Unassigned")+'">'+esc(initials(m?m.name:"?"))+'</span>';
+}
+function who(id, cls){
+  return '<span class="who">'+avatar(id, cls||"sm")+'<span class="nm">'+esc(mName(id))+'</span></span>';
+}
+function bar(pct, tone){
+  var v = Math.max(0, Math.min(100, Math.round(Number(pct)||0)));
+  return '<div class="bar-row"><div class="bar '+(tone||"")+'"><span style="width:'+v+'%"></span></div><span class="pct">'+v+'%</span></div>';
+}
+function canApprove(){
+  var m = member(S.me);
+  return !!m && (m.level === "management" || m.level === "lead");
+}
+function isManagement(){
+  var m = member(S.me);
+  return !!m && m.level === "management";
+}
+function opts(list, sel){
+  return list.map(function(o){
+    var v = typeof o === "string" ? o : o.v, l = typeof o === "string" ? o : o.l;
+    return '<option value="'+esc(v)+'"'+(String(v)===String(sel)?" selected":"")+'>'+esc(l)+'</option>';
+  }).join("");
+}
+function projectOptions(sel){
+  return opts(S.projects.map(function(p){ return {v:p.id, l:p.code+" — "+p.name}; }), sel);
+}
+function d(key, fallback){ return S.draft[key] !== undefined ? S.draft[key] : (fallback || ""); }
+function clearDraft(prefix){
+  Object.keys(S.draft).forEach(function(k){ if(k.indexOf(prefix) === 0) delete S.draft[k]; });
+}
+
+/* ---------------- derived data ---------------- */
+function workFor(pid){
+  return S.work.filter(function(w){ return w.project === pid; });
+}
+function latestByMember(pid){
+  var map = {};
+  workFor(pid).forEach(function(w){
+    if(!map[w.member] || String(w.date) > String(map[w.member].date)) map[w.member] = w;
+  });
+  return map;
+}
+function projectProgress(pid){
+  var map = latestByMember(pid), keys = Object.keys(map);
+  if(!keys.length) return 0;
+  var sum = keys.reduce(function(a,k){ return a + (Number(map[k].progress)||0); }, 0);
+  return Math.round(sum / keys.length);
+}
+function hoursSince(days, memberId){
+  return S.work.reduce(function(a,w){
+    if(daysAgo(w.date) > days || daysAgo(w.date) < 0) return a;
+    if(memberId && w.member !== memberId) return a;
+    return a + (Number(w.hours)||0);
+  }, 0);
+}
+function docsBy(status){ return S.docs.filter(function(x){ return x.status === status; }); }
+function decsBy(status){ return S.decisions.filter(function(x){ return x.status === status; }); }
+function overdueDecisions(){
+  return S.decisions.filter(function(x){ return x.status === "pending" && x.neededBy && daysAgo(x.neededBy) > 0; });
+}
+function myQueue(){
+  var out = [];
+  if(canApprove()){
+    docsBy("submitted").forEach(function(x){ out.push({kind:"doc", item:x, why:"Waiting for your review"}); });
+    decsBy("pending").forEach(function(x){ out.push({kind:"dec", item:x, why:"Waiting for your decision"}); });
+  }
+  S.docs.forEach(function(x){
+    if(x.status === "returned" && x.owner === S.me) out.push({kind:"doc", item:x, why:"Returned to you for rework"});
+  });
+  S.decisions.forEach(function(x){
+    if(x.status === "changes" && x.raisedBy === S.me) out.push({kind:"dec", item:x, why:"Management asked for changes"});
+  });
+  return out;
+}
+
+/* ---------------- database wiring ---------------- */
+var COLLECTIONS = [
+  ["members","members"], ["projects","projects"], ["worklog","work"],
+  ["documents","docs"], ["decisions","decisions"]
+];
+
+function boot(){
+  if(!window.claude || !window.claude.use){ failDb(); return; }
+  window.claude.use("db").then(function(db){
+    if(!db){ failDb(); return; }
+    S.db = db;
+    COLLECTIONS.forEach(function(pair){
+      db.collection(pair[0]).onSnapshot(function(snap){
+        S[pair[1]] = snap.docs.map(function(doc){
+          var body = doc.data() || {};
+          var o = {id: doc.id};
+          Object.keys(body).forEach(function(k){ o[k] = body[k]; });
+          return o;
+        });
+        S.loaded[pair[1]] = true;
+        if(pair[1] === "members") pickMe();
+        markReady();
+        renderAll();
+      }, function(err){
+        S.dbFailed = true;
+        setSync("off", "Live sync stopped ("+esc(err.code)+"). Reload the page to reconnect.");
+        renderAll();
+      });
+    });
+  })["catch"](failDb);
+
+  window.claude.use("downloads").then(function(dl){
+    S.downloads = dl;
+    if(dl) renderAll();
+  })["catch"](function(){});
+}
+function failDb(){
+  S.dbFailed = true;
+  setSync("off", "Shared board unavailable in this view");
+  renderAll();
+}
+function markReady(){
+  var all = Object.keys(S.loaded).every(function(k){ return S.loaded[k]; });
+  if(all && !S.ready){ S.ready = true; }
+  if(S.ready && !S.dbFailed) setSync("on", "Live — shared with the team");
+}
+function setSync(cls, text){
+  var el = $("sync");
+  el.className = "sync " + cls;
+  $("syncText").textContent = text;
+}
+function write(fn, okMsg){
+  if(!S.db){ toast("Not connected to the shared board."); return; }
+  if(S.busy) return;
+  S.busy = true;
+  fn().then(function(){
+    S.busy = false;
+    if(okMsg) toast(okMsg);
+    renderAll();
+  })["catch"](function(err){
+    S.busy = false;
+    var code = err && err.code ? err.code : "unknown";
+    if(code === "quota_exceeded") toast("The board is full — delete some old entries first.");
+    else if(code === "resource_exhausted") toast("Too many changes at once. Wait a moment and try again.");
+    else toast("Could not save ("+code+"). Try again.");
+    renderAll();
+  });
+}
+function stamp(){ return new Date().toISOString(); }
+
+/* ---------------- identity ---------------- */
+function pickMe(){
+  var saved = null;
+  try{ saved = localStorage.getItem("cgpd.me"); }catch(e){}
+  if(saved && member(saved)){ S.me = saved; return; }
+  if(!S.members.length){ S.me = null; return; }
+  var mgmt = S.members.filter(function(m){ return m.level === "management"; });
+  S.me = (mgmt[0] || S.members[0]).id;
+}
+function setMe(id){
+  S.me = id;
+  try{ localStorage.setItem("cgpd.me", id); }catch(e){}
+  renderAll();
+}
+
+/* ---------------- rendering ---------------- */
+function renderAll(){
+  var active = document.activeElement;
+  var focusId = active && active.id ? active.id : null;
+  var selStart = null;
+  try{ selStart = active && "selectionStart" in active ? active.selectionStart : null; }catch(e){}
+
+  renderIdentity();
+  renderTabs();
+  var el = $("app");
+  el.innerHTML = viewFor(S.tab);
+
+  if(focusId){
+    var n = $(focusId);
+    if(n && n !== document.activeElement){
+      n.focus();
+      if(selStart != null){ try{ n.setSelectionRange(selStart, selStart); }catch(e){} }
+    }
+  }
+}
+function renderIdentity(){
+  var sel = $("who");
+  if(!S.members.length){
+    sel.innerHTML = '<option>No team members yet</option>';
+    $("meMeta").textContent = S.dbFailed ? "" : "Add the team on the Team tab.";
+    return;
+  }
+  sel.innerHTML = opts(S.members.map(function(m){ return {v:m.id, l:m.name}; }), S.me);
+  var m = member(S.me);
+  $("meMeta").innerHTML = m
+    ? esc(m.role) + (canApprove() ? ' &middot; <span class="chip acc">Approver</span>' : "")
+    : "";
+}
+function renderTabs(){
+  var pendingDocs = docsBy("submitted").length;
+  var pendingDecs = decsBy("pending").length;
+  var tabs = [
+    {id:"overview", label:"Overview", count:null},
+    {id:"work", label:"Daily Work", count:S.work.length},
+    {id:"docs", label:"Documents", count:pendingDocs, hot:pendingDocs>0},
+    {id:"decisions", label:"Decisions", count:pendingDecs, hot:pendingDecs>0},
+    {id:"team", label:"Team", count:S.members.length}
+  ];
+  $("tabs").innerHTML = tabs.map(function(t){
+    return '<button class="tab" role="tab" aria-selected="'+(S.tab===t.id)+'" data-act="tab" data-id="'+t.id+'">'+
+      esc(t.label) + (t.count ? '<span class="count'+(t.hot?" hot":"")+'">'+t.count+'</span>' : "") + '</button>';
+  }).join("");
+}
+function viewFor(tab){
+  if(S.dbFailed) return disconnectedView();
+  if(!S.ready) return '<div class="panel"><div class="empty">Loading the board…</div></div>';
+  if(tab === "work") return workView();
+  if(tab === "docs") return docsView();
+  if(tab === "decisions") return decisionsView();
+  if(tab === "team") return teamView();
+  return overviewView();
+}
+function disconnectedView(){
+  return '<div class="notebar warn"><span>⚠</span><span>This view cannot reach the shared board, so no entries can be shown or saved. '+
+    'Open the published link from claude.ai while signed in to your Chamaria Group account.</span></div>';
+}
+
+/* ---------- overview ---------- */
+function overviewView(){
+  var hrs = hoursSince(6);
+  var subDocs = docsBy("submitted").length;
+  var pendDec = decsBy("pending").length;
+  var overdue = overdueDecisions().length;
+  var noLog = S.members.filter(function(m){
+    return !S.work.some(function(w){ return w.member === m.id && daysAgo(w.date) <= 1; });
+  }).length;
+
+  var strip = '<div class="strip">' +
+    metric("Active projects", S.projects.length, S.projects.length ? "in start-up phase" : "none yet") +
+    metric("Hours logged", num(hrs,1), "last 7 days") +
+    metric("Docs in review", subDocs, "submitted to approvers", subDocs ? "alert" : "") +
+    metric("Decisions pending", pendDec, "with management", pendDec ? "alert" : "") +
+    metric("Past needed-by", overdue, "decisions overdue", overdue ? "crit" : "") +
+    metric("Not logged", noLog, "members, last 2 days", noLog ? "alert" : "") +
+    '</div>';
+
+  var q = myQueue();
+  var queue = '<section class="section"><div class="section-head"><h2>Waiting on you</h2>' +
+    '<span class="section-note">' + (member(S.me) ? esc(mName(S.me)) : "Pick who you are above") +
+    (canApprove() ? " · approver" : "") + '</span></div>' +
+    '<div class="panel"><div class="rows">' +
+    (q.length ? q.map(queueRow).join("") : '<div class="empty">Nothing is waiting on you right now.</div>') +
+    '</div></div></section>';
+
+  var projects = '<section class="section"><div class="section-head"><h2>Projects and member-wise progress</h2>' +
+    '<span class="section-note">Progress is each member’s own latest self-reported figure from their work log.</span></div>' +
+    '<div class="panel">' +
+    (S.projects.length ? S.projects.slice().sort(function(a,b){ return String(a.code).localeCompare(String(b.code)); }).map(projectRow).join("")
+      : '<div class="empty">No projects yet.</div>') +
+    '</div></section>';
+
+  var recent = S.work.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).slice(0,6);
+  var feed = '<section class="section"><div class="section-head"><h2>Latest updates from the team</h2>' +
+    '<button class="btn sm ghost" data-act="tab" data-id="work">See all work &rarr;</button></div>' +
+    '<div class="panel"><div class="rows">' +
+    (recent.length ? recent.map(workRow).join("") : '<div class="empty">No work logged yet.</div>') +
+    '</div></div></section>';
+
+  return strip + queue + projects + feed;
+}
+function metric(label, value, sub, cls){
+  return '<div class="metric '+(cls||"")+'"><span class="m-label">'+esc(label)+'</span>' +
+    '<span class="m-value">'+esc(String(value))+'</span><span class="m-sub">'+esc(sub)+'</span></div>';
+}
+function queueRow(q){
+  var it = q.item;
+  var isDoc = q.kind === "doc";
+  return '<div class="row"><div class="row-main">' +
+    '<div class="row-title">'+esc(it.title)+'</div>' +
+    '<div class="row-sub"><span class="chip '+(isDoc?"acc":"wait")+'">'+(isDoc?"Document":"Decision")+'</span>' +
+    '<span class="code">'+esc(pCode(it.project))+'</span><span>'+esc(q.why)+'</span></div>' +
+    '</div><div class="row-side">' +
+    '<button class="btn sm" data-act="tab" data-id="'+(isDoc?"docs":"decisions")+'">Open</button>' +
+    '</div></div>';
+}
+function projectRow(p){
+  var pct = projectProgress(p.id);
+  var map = latestByMember(p.id);
+  var ids = Object.keys(map).sort(function(a,b){ return (Number(map[b].progress)||0) - (Number(map[a].progress)||0); });
+  var docCount = S.docs.filter(function(x){ return x.project === p.id; }).length;
+  var okDocs = S.docs.filter(function(x){ return x.project === p.id && x.status === "approved"; }).length;
+  var open = S.decisions.filter(function(x){ return x.project === p.id && x.status === "pending"; }).length;
+
+  var members = ids.length
+    ? ids.map(function(id){
+        var w = map[id];
+        return '<div class="pm">' + avatar(id, "sm") +
+          '<span class="pm-name">'+esc(mName(id))+'</span>' +
+          bar(w.progress, pct >= 100 ? "good" : "") +
+          '<span class="pm-when">'+esc(relDay(w.date))+'</span></div>';
+      }).join("")
+    : '<div class="pm-none">No work logged against this project yet.</div>';
+
+  return '<div class="proj">' +
+    '<div class="proj-top">' +
+      '<div><div class="proj-name">'+esc(p.name)+'</div>' +
+        '<div class="proj-meta"><span class="code">'+esc(p.code)+'</span>' +
+        '<span class="chip">'+esc(p.phase||"Phase not set")+'</span>' +
+        (p.capex ? '<span class="chip acc">'+esc(p.capex)+'</span>' : "") +
+        (p.location ? '<span class="section-note">'+esc(p.location)+'</span>' : "") + '</div></div>' +
+      '<div class="kv"><span class="k">Overall progress</span><span class="v">'+bar(pct)+'</span></div>' +
+      '<div class="kv"><span class="k">Documents</span><span class="v num">'+okDocs+' / '+docCount+' approved' +
+        (open ? ' <span class="chip wait">'+open+' decision'+(open>1?"s":"")+'</span>' : "") + '</span></div>' +
+      '<div class="kv"><span class="k">Lead &middot; Target</span><span class="v">'+esc(mName(p.lead))+'<br><span class="code">'+esc(fmtDate(p.target))+'</span></span></div>' +
+    '</div>' +
+    '<div class="proj-members">'+members+'</div>' +
+  '</div>';
+}
+
+/* ---------- daily work ---------- */
+function workView(){
+  var meName = member(S.me) ? mName(S.me) : "you";
+  var form = '<section class="section"><div class="section-head"><h2>Log today’s work</h2>' +
+    '<span class="section-note">Posted as ' + esc(meName) + ' &middot; visible to the whole team</span></div>' +
+    '<div class="panel panel-pad"><div class="form-grid">' +
+      field("Date", '<input class="input" type="date" id="w-date" data-draft="w-date" value="'+esc(d("w-date", isoToday()))+'">') +
+      field("Project", '<select class="select" id="w-project" data-draft="w-project">'+projectOptions(d("w-project"))+'</select>') +
+      field("Hours", '<input class="input num" type="number" min="0" max="24" step="0.5" id="w-hours" data-draft="w-hours" value="'+esc(d("w-hours","4"))+'">') +
+      field("Your progress on this project", '<input class="input" type="number" min="0" max="100" step="5" id="w-progress" data-draft="w-progress" value="'+esc(d("w-progress","50"))+'">', "Your own share of the work, 0–100%") +
+      field("What you did", '<textarea class="area" id="w-summary" data-draft="w-summary" placeholder="e.g. Completed load calculations for Block B and shared the revised layout with the vendor.">'+esc(d("w-summary"))+'</textarea>', "", true) +
+      field("Blocker (optional)", '<input class="input" id="w-blocker" data-draft="w-blocker" placeholder="e.g. Waiting on soil report from the surveyor" value="'+esc(d("w-blocker"))+'">', "", true) +
+    '</div><div class="btn-row" style="margin-top:14px">' +
+      '<button class="btn primary" data-act="add-work">Add entry</button>' +
+      (S.downloads ? '<button class="btn" data-act="export">Export work log (CSV)</button>' : "") +
+    '</div></div></section>';
+
+  var list = S.work.filter(function(w){
+    return (S.filters.wMember === "all" || w.member === S.filters.wMember) &&
+           (S.filters.wProject === "all" || w.project === S.filters.wProject);
+  }).sort(function(a,b){
+    var c = String(b.date).localeCompare(String(a.date));
+    return c !== 0 ? c : String(b.created||"").localeCompare(String(a.created||""));
+  });
+
+  var groups = [], byDate = {};
+  list.forEach(function(w){
+    if(!byDate[w.date]){ byDate[w.date] = []; groups.push(w.date); }
+    byDate[w.date].push(w);
+  });
+
+  var filters = '<div class="toolbar">' +
+    field("Member", '<select class="select" id="f-wm" data-act="filter" data-key="wMember">'+
+      opts([{v:"all",l:"Everyone"}].concat(S.members.map(function(m){ return {v:m.id,l:m.name}; })), S.filters.wMember)+'</select>') +
+    field("Project", '<select class="select" id="f-wp" data-act="filter" data-key="wProject">'+
+      opts([{v:"all",l:"All projects"}].concat(S.projects.map(function(p){ return {v:p.id,l:p.code}; })), S.filters.wProject)+'</select>') +
+    '</div>';
+
+  var body = groups.length ? groups.map(function(date){
+    var items = byDate[date];
+    var h = items.reduce(function(a,w){ return a + (Number(w.hours)||0); }, 0);
+    return '<div class="day-head"><span class="d">'+esc(relDay(date))+' <span class="code">'+esc(fmtDate(date))+'</span></span>' +
+      '<span class="h">'+num(h,1)+' h &middot; '+items.length+' entr'+(items.length===1?"y":"ies")+'</span></div>' +
+      items.map(workRow).join("");
+  }).join("") : '<div class="empty">No entries match these filters.</div>';
+
+  return form + '<section class="section"><div class="section-head"><h2>Work log</h2>' +
+    '<span class="section-note">'+num(hoursSince(6),1)+' hours logged across the team in the last 7 days</span></div>' +
+    filters + '<div class="panel"><div class="rows">'+body+'</div></div></section>';
+}
+function workRow(w){
+  var mine = w.member === S.me;
+  return '<div class="row"><div class="row-main">' +
+    '<div class="row-sub">'+who(w.member)+'<span class="code">'+esc(pCode(w.project))+'</span>' +
+    '<span class="chip">'+num(w.hours,1)+' h</span>' +
+    '<span class="code">'+esc(fmtDate(w.date))+'</span></div>' +
+    '<div class="row-body">'+esc(w.summary)+'</div>' +
+    (w.blocker ? '<div class="blocker"><span>⚠</span><span>'+esc(w.blocker)+'</span></div>' : "") +
+    '</div><div class="row-side" style="min-width:132px">' +
+    bar(w.progress) +
+    (mine ? '<button class="btn sm ghost" data-act="del-work" data-id="'+esc(w.id)+'">Delete</button>' : "") +
+    '</div></div>';
+}
+function field(label, control, hint, wide){
+  return '<div class="f'+(wide?" wide":"")+'"><span class="field-label">'+esc(label)+'</span>'+control+
+    (hint ? '<span class="hint">'+esc(hint)+'</span>' : "")+'</div>';
+}
+
+/* ---------- documents ---------- */
+function docsView(){
+  var showForm = !!S.open["doc-form"];
+  var form = showForm ? '<div class="panel panel-pad"><div class="form-grid">' +
+      field("Title", '<input class="input" id="d-title" data-draft="d-title" placeholder="e.g. Detailed Project Report — Phase II" value="'+esc(d("d-title"))+'">', "", true) +
+      field("Project", '<select class="select" id="d-project" data-draft="d-project">'+projectOptions(d("d-project"))+'</select>') +
+      field("Type", '<select class="select" id="d-type" data-draft="d-type">'+opts(DOC_TYPES, d("d-type","DPR"))+'</select>') +
+      field("Version", '<input class="input" id="d-version" data-draft="d-version" placeholder="v0.1" value="'+esc(d("d-version","v0.1"))+'">') +
+      field("Where it is stored", '<input class="input" id="d-link" data-draft="d-link" placeholder="SharePoint › New Projects › CBE-EXP-02 › DPR" value="'+esc(d("d-link"))+'">', "Paste a link or the folder path so the team can find it.", true) +
+      field("Note for reviewers", '<textarea class="area" id="d-note" data-draft="d-note" placeholder="What changed in this version, and what you need checked.">'+esc(d("d-note"))+'</textarea>', "", true) +
+    '</div><div class="btn-row" style="margin-top:14px">' +
+      '<button class="btn primary" data-act="add-doc" data-mode="submitted">Submit for review</button>' +
+      '<button class="btn" data-act="add-doc" data-mode="draft">Save as draft</button>' +
+      '<button class="btn ghost" data-act="toggle" data-id="doc-form">Cancel</button>' +
+    '</div></div>' : "";
+
+  var f = S.filters.dStatus;
+  var list = S.docs.filter(function(x){
+    if(f === "all") return true;
+    if(f === "open") return x.status === "submitted" || x.status === "returned" || x.status === "draft";
+    if(f === "mine") return x.owner === S.me;
+    return x.status === f;
+  }).sort(function(a,b){
+    var order = {submitted:0, returned:1, draft:2, approved:3};
+    var c = (order[a.status]||9) - (order[b.status]||9);
+    return c !== 0 ? c : String(b.updated||"").localeCompare(String(a.updated||""));
+  });
+
+  var filters = '<div class="toolbar">' +
+    field("Show", '<select class="select" id="f-ds" data-act="filter" data-key="dStatus">'+
+      opts([{v:"open",l:"Open items"},{v:"submitted",l:"Awaiting review"},{v:"approved",l:"Approved"},
+            {v:"returned",l:"Returned"},{v:"mine",l:"Mine"},{v:"all",l:"Everything"}], f)+'</select>') +
+    '</div>';
+
+  return '<section class="section"><div class="section-head"><h2>Project documentation</h2>' +
+    '<button class="btn '+(showForm?"ghost":"primary")+'" data-act="toggle" data-id="doc-form">'+(showForm?"Close":"+ Add document")+'</button></div>' +
+    '<div class="notebar"><span>ℹ</span><span>This is the shared register: every document listed here is visible to the whole team. ' +
+    'Keep the file itself in SharePoint or Drive and record the location below, so nobody has to ask where the latest version lives.</span></div>' +
+    form + filters +
+    '<div class="panel"><div class="rows">' +
+    (list.length ? list.map(docRow).join("") : '<div class="empty">Nothing here yet.</div>') +
+    '</div></div></section>';
+}
+function docStatusChip(s){
+  var map = {draft:["","Draft"], submitted:["wait","In review"], approved:["good","Approved"], returned:["bad","Returned"]};
+  var v = map[s] || ["","Unknown"];
+  return '<span class="chip '+v[0]+'">'+v[1]+'</span>';
+}
+function docRow(x){
+  var mine = x.owner === S.me;
+  var acting = S.act && S.act.kind === "doc" && S.act.id === x.id;
+  var actions = [];
+  if(x.status === "draft" && mine) actions.push('<button class="btn sm primary" data-act="doc-submit" data-id="'+esc(x.id)+'">Submit for review</button>');
+  if(x.status === "returned" && mine) actions.push('<button class="btn sm primary" data-act="doc-submit" data-id="'+esc(x.id)+'">Resubmit</button>');
+  if(x.status === "submitted" && canApprove()){
+    actions.push('<button class="btn sm ok" data-act="ask" data-kind="doc" data-id="'+esc(x.id)+'" data-verdict="approved">Approve</button>');
+    actions.push('<button class="btn sm no" data-act="ask" data-kind="doc" data-id="'+esc(x.id)+'" data-verdict="returned">Return</button>');
+  }
+  if(x.status === "submitted" && !canApprove()) actions.push('<span class="hint">Approval sits with the project lead or management.</span>');
+  if(mine && x.status !== "approved") actions.push('<button class="btn sm ghost" data-act="del-doc" data-id="'+esc(x.id)+'">Delete</button>');
+
+  var noteBox = acting ? '<div style="margin-top:8px"><textarea class="area" id="act-note" data-draft="act-note" placeholder="'+
+      (S.act.verdict === "approved" ? "Optional note with your approval" : "Tell the owner what needs to change")+'">'+esc(d("act-note"))+'</textarea>' +
+      '<div class="btn-row" style="margin-top:8px">' +
+      '<button class="btn sm primary" data-act="doc-decide">Confirm '+(S.act.verdict === "approved" ? "approval" : "return")+'</button>' +
+      '<button class="btn sm ghost" data-act="cancel-act">Cancel</button></div></div>' : "";
+
+  return '<div class="row"><div class="row-main">' +
+    '<div class="row-title">'+esc(x.title)+' <span class="code">'+esc(x.version||"")+'</span></div>' +
+    '<div class="row-sub">'+docStatusChip(x.status)+'<span class="chip">'+esc(x.type||"Document")+'</span>' +
+    '<span class="code">'+esc(pCode(x.project))+'</span>' + who(x.owner) +
+    '<span>updated '+esc(relDay((x.updated||"").slice(0,10)))+'</span></div>' +
+    (x.link ? '<div class="row-body"><span class="code">'+esc(x.link)+'</span></div>' : "") +
+    (x.note ? '<div class="row-body">'+esc(x.note)+'</div>' : "") +
+    (x.review ? '<div class="verdict"><strong>'+esc(x.status === "approved" ? "Approved" : "Returned")+' by '+esc(mName(x.reviewer))+'</strong> — '+esc(x.review)+'</div>' : "") +
+    noteBox +
+    '</div><div class="row-side">'+actions.join("")+'</div></div>';
+}
+
+/* ---------- decisions ---------- */
+function decisionsView(){
+  var showForm = !!S.open["dec-form"];
+  var form = showForm ? '<div class="panel panel-pad"><div class="form-grid">' +
+      field("What needs deciding", '<input class="input" id="x-title" data-draft="x-title" placeholder="e.g. Approve capex of ₹42.5 Cr for Phase II" value="'+esc(d("x-title"))+'">', "", true) +
+      field("Project", '<select class="select" id="x-project" data-draft="x-project">'+projectOptions(d("x-project"))+'</select>') +
+      field("Needed by", '<input class="input" type="date" id="x-by" data-draft="x-by" value="'+esc(d("x-by"))+'">') +
+      field("Background", '<textarea class="area" id="x-context" data-draft="x-context" placeholder="What the team found, and why a management call is needed.">'+esc(d("x-context"))+'</textarea>', "", true) +
+      field("Options", '<textarea class="area" id="x-options" data-draft="x-options" placeholder="One option per line">'+esc(d("x-options"))+'</textarea>', "One per line.", true) +
+      field("Your recommendation", '<input class="input" id="x-rec" data-draft="x-rec" placeholder="e.g. Go with Option B, phased over two quarters" value="'+esc(d("x-rec"))+'">', "", true) +
+    '</div><div class="btn-row" style="margin-top:14px">' +
+      '<button class="btn primary" data-act="add-dec">Send to management</button>' +
+      '<button class="btn ghost" data-act="toggle" data-id="dec-form">Cancel</button>' +
+    '</div></div>' : "";
+
+  var f = S.filters.decStatus;
+  var list = S.decisions.filter(function(x){
+    if(f === "all") return true;
+    if(f === "open") return x.status === "pending" || x.status === "changes";
+    return x.status === f;
+  }).sort(function(a,b){
+    var order = {pending:0, changes:1, approved:2, rejected:3};
+    var c = (order[a.status]||9) - (order[b.status]||9);
+    return c !== 0 ? c : String(a.neededBy||"9999").localeCompare(String(b.neededBy||"9999"));
+  });
+
+  var filters = '<div class="toolbar">' +
+    field("Show", '<select class="select" id="f-xs" data-act="filter" data-key="decStatus">'+
+      opts([{v:"open",l:"Open"},{v:"pending",l:"Awaiting decision"},{v:"approved",l:"Approved"},
+            {v:"rejected",l:"Not approved"},{v:"changes",l:"Changes asked for"},{v:"all",l:"Everything"}], f)+'</select>') +
+    '</div>';
+
+  return '<section class="section"><div class="section-head"><h2>Decisions for management</h2>' +
+    '<button class="btn '+(showForm?"ghost":"primary")+'" data-act="toggle" data-id="dec-form">'+(showForm?"Close":"+ Raise a decision")+'</button></div>' +
+    '<div class="section-note">'+(canApprove()
+      ? "You can approve, decline or send items back for more detail."
+      : "Raise the call here; the project lead or a director records the decision.")+'</div>' +
+    form + filters +
+    '<div class="dgrid">' +
+    (list.length ? list.map(decCard).join("") : '<div class="panel"><div class="empty">Nothing here yet.</div></div>') +
+    '</div></section>';
+}
+function decChip(s){
+  var map = {pending:["wait","Awaiting decision"], approved:["good","Approved"],
+             rejected:["bad","Not approved"], changes:["acc","Changes asked for"]};
+  var v = map[s] || ["","—"];
+  return '<span class="chip '+v[0]+'">'+v[1]+'</span>';
+}
+function decCard(x){
+  var acting = S.act && S.act.kind === "dec" && S.act.id === x.id;
+  var late = x.status === "pending" && x.neededBy && daysAgo(x.neededBy) > 0;
+  var options = String(x.options||"").split("\n").filter(function(s){ return s.trim(); });
+  var actions = [];
+  if(x.status === "pending" || x.status === "changes"){
+    if(canApprove()){
+      actions.push('<button class="btn sm ok" data-act="ask" data-kind="dec" data-id="'+esc(x.id)+'" data-verdict="approved">Approve</button>');
+      actions.push('<button class="btn sm" data-act="ask" data-kind="dec" data-id="'+esc(x.id)+'" data-verdict="changes">Ask for more</button>');
+      actions.push('<button class="btn sm no" data-act="ask" data-kind="dec" data-id="'+esc(x.id)+'" data-verdict="rejected">Decline</button>');
+    } else {
+      actions.push('<span class="hint">With '+esc(mName(x.approver))+'</span>');
+    }
+  }
+  if(x.raisedBy === S.me && x.status !== "approved")
+    actions.push('<button class="btn sm ghost" data-act="del-dec" data-id="'+esc(x.id)+'">Withdraw</button>');
+
+  var noteBox = acting ? '<div style="padding:0 15px 12px"><textarea class="area" id="act-note" data-draft="act-note" placeholder="Record your reasoning — the team sees this.">'+esc(d("act-note"))+'</textarea>' +
+    '<div class="btn-row" style="margin-top:8px"><button class="btn sm primary" data-act="dec-decide">Record decision</button>' +
+    '<button class="btn sm ghost" data-act="cancel-act">Cancel</button></div></div>' : "";
+
+  return '<article class="dcard '+esc(x.status)+'">' +
+    '<div class="dcard-head"><h3>'+esc(x.title)+'</h3>'+decChip(x.status)+'</div>' +
+    '<div class="dcard-body">' +
+      '<div class="row-sub"><span class="code">'+esc(pCode(x.project))+'</span>'+who(x.raisedBy)+
+      (x.neededBy ? '<span class="'+(late?"chip bad":"code")+'">'+(late?"Overdue · ":"Needed by ")+esc(fmtDate(x.neededBy))+'</span>' : "")+'</div>' +
+      (x.context ? '<div class="row-body">'+esc(x.context)+'</div>' : "") +
+      (options.length ? '<ul class="opts">'+options.map(function(o){ return '<li>'+esc(o)+'</li>'; }).join("")+'</ul>' : "") +
+      (x.recommendation ? '<div class="rec"><strong>Recommended:</strong> '+esc(x.recommendation)+'</div>' : "") +
+      (x.status !== "pending" && x.decidedBy ? '<div class="verdict"><strong>'+esc(decVerb(x.status))+' by '+esc(mName(x.decidedBy))+
+        '</strong> on '+esc(fmtDate((x.decidedAt||"").slice(0,10)))+(x.note ? ' — '+esc(x.note) : "")+'</div>' : "") +
+    '</div>' + noteBox +
+    (actions.length ? '<div class="dcard-foot">'+actions.join("")+'</div>' : "") +
+  '</article>';
+}
+function decVerb(s){
+  return s === "approved" ? "Approved" : s === "rejected" ? "Declined" : "Sent back";
+}
+
+/* ---------- team ---------- */
+function teamView(){
+  var showForm = !!S.open["mem-form"];
+  var form = showForm ? '<div class="panel panel-pad"><div class="form-grid">' +
+      field("Name", '<input class="input" id="m-name" data-draft="m-name" placeholder="Full name" value="'+esc(d("m-name"))+'">') +
+      field("Role", '<input class="input" id="m-role" data-draft="m-role" placeholder="e.g. Structures Engineer" value="'+esc(d("m-role"))+'">') +
+      field("Rights", '<select class="select" id="m-level" data-draft="m-level">'+
+        opts([{v:"member",l:"Team member"},{v:"lead",l:"Project lead — can approve"},{v:"management",l:"Management — can approve"}], d("m-level","member"))+'</select>') +
+    '</div><div class="btn-row" style="margin-top:14px">' +
+      '<button class="btn primary" data-act="add-member">Add to team</button>' +
+      '<button class="btn ghost" data-act="toggle" data-id="mem-form">Cancel</button>' +
+    '</div></div>' : "";
+
+  var cards = S.members.map(function(m){
+    var hrs = hoursSince(6, m.id);
+    var docs = S.docs.filter(function(x){ return x.owner === m.id; });
+    var okDocs = docs.filter(function(x){ return x.status === "approved"; }).length;
+    var opendec = S.decisions.filter(function(x){ return x.raisedBy === m.id && x.status === "pending"; }).length;
+    var last = S.work.filter(function(w){ return w.member === m.id; })
+      .sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); })[0];
+    var projIds = {};
+    S.work.forEach(function(w){ if(w.member === m.id) projIds[w.project] = 1; });
+    var codes = Object.keys(projIds).map(pCode).filter(Boolean);
+    return '<div class="tcard">' +
+      '<div class="tcard-top">'+avatar(m.id,"lg")+'<div><div style="font-weight:600">'+esc(m.name)+
+        (m.id === S.me ? ' <span class="chip acc">You</span>' : "")+'</div>' +
+        '<div class="section-note">'+esc(m.role||"")+'</div></div></div>' +
+      '<div class="row-sub">'+(codes.length ? codes.map(function(c){ return '<span class="code">'+esc(c)+'</span>'; }).join("") : '<span class="hint">No project work logged</span>')+'</div>' +
+      '<div class="tstats">' +
+        '<div class="tstat"><span class="n">'+num(hrs,1)+'</span><span class="l">hrs / 7d</span></div>' +
+        '<div class="tstat"><span class="n">'+okDocs+'/'+docs.length+'</span><span class="l">docs ok</span></div>' +
+        '<div class="tstat"><span class="n">'+opendec+'</span><span class="l">open calls</span></div>' +
+      '</div>' +
+      '<div class="hint">Last update: '+(last ? esc(relDay(last.date)) : "never")+
+        (m.level !== "member" ? ' · approver' : "")+'</div>' +
+    '</div>';
+  }).join("");
+
+  return '<section class="section"><div class="section-head"><h2>Team</h2>' +
+    '<button class="btn '+(showForm?"ghost":"primary")+'" data-act="toggle" data-id="mem-form">'+(showForm?"Close":"+ Add member")+'</button></div>' +
+    form + '<div class="tgrid">'+(S.members.length ? cards : '<div class="panel"><div class="empty">No members yet.</div></div>')+'</div></section>';
+}
+
+/* ---------------- actions ---------------- */
+document.addEventListener("input", function(e){
+  var t = e.target;
+  if(t && t.getAttribute && t.getAttribute("data-draft")){
+    S.draft[t.getAttribute("data-draft")] = t.value;
+  }
+});
+document.addEventListener("change", function(e){
+  var t = e.target;
+  if(!t || !t.getAttribute) return;
+  if(t.id === "who"){ setMe(t.value); return; }
+  if(t.getAttribute("data-act") === "filter"){
+    S.filters[t.getAttribute("data-key")] = t.value;
+    renderAll();
+    return;
+  }
+  if(t.getAttribute("data-draft")) S.draft[t.getAttribute("data-draft")] = t.value;
+});
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("[data-act]") : null;
+  if(!b) return;
+  var act = b.getAttribute("data-act");
+  var id = b.getAttribute("data-id");
+
+  if(act === "tab"){ S.tab = id; S.act = null; window.scrollTo({top:0, behavior:"smooth"}); renderAll(); return; }
+  if(act === "toggle"){ S.open[id] = !S.open[id]; renderAll(); return; }
+  if(act === "cancel-act"){ S.act = null; delete S.draft["act-note"]; renderAll(); return; }
+  if(act === "ask"){
+    S.act = {kind:b.getAttribute("data-kind"), id:id, verdict:b.getAttribute("data-verdict")};
+    delete S.draft["act-note"];
+    renderAll();
+    return;
+  }
+  if(act === "add-work") return addWork();
+  if(act === "del-work") return write(function(){ return S.db.doc("worklog/"+id).delete(); }, "Entry deleted.");
+  if(act === "add-doc") return addDoc(b.getAttribute("data-mode"));
+  if(act === "doc-submit") return write(function(){
+    return S.db.doc("documents/"+id).update({status:"submitted", updated:stamp(), review:"", reviewer:""});
+  }, "Sent for review.");
+  if(act === "doc-decide") return decideDoc();
+  if(act === "del-doc") return write(function(){ return S.db.doc("documents/"+id).delete(); }, "Document removed.");
+  if(act === "add-dec") return addDecision();
+  if(act === "dec-decide") return decideDecision();
+  if(act === "del-dec") return write(function(){ return S.db.doc("decisions/"+id).delete(); }, "Withdrawn.");
+  if(act === "add-member") return addMember();
+  if(act === "export") return exportCsv();
+});
+
+function requireMe(){
+  if(!S.me){ toast("Pick who you are, top right."); return false; }
+  return true;
+}
+function addWork(){
+  if(!requireMe()) return;
+  var summary = (d("w-summary") || "").trim();
+  var proj = d("w-project") || (S.projects[0] && S.projects[0].id);
+  if(!summary){ toast("Write a line about what you did."); return; }
+  if(!proj){ toast("Add a project first."); return; }
+  var body = {
+    date: d("w-date", isoToday()), member: S.me, project: proj,
+    hours: Number(d("w-hours","4")) || 0,
+    progress: Math.max(0, Math.min(100, Number(d("w-progress","0")) || 0)),
+    summary: summary, blocker: (d("w-blocker")||"").trim(), created: stamp()
+  };
+  write(function(){ return S.db.collection("worklog").add(body); }, "Work logged.");
+  clearDraft("w-summary"); clearDraft("w-blocker");
+}
+function addDoc(mode){
+  if(!requireMe()) return;
+  var title = (d("d-title")||"").trim();
+  var proj = d("d-project") || (S.projects[0] && S.projects[0].id);
+  if(!title){ toast("Give the document a title."); return; }
+  if(!proj){ toast("Add a project first."); return; }
+  var body = {
+    title:title, project:proj, owner:S.me, type:d("d-type","DPR"),
+    version:(d("d-version","v0.1")||"").trim(), link:(d("d-link")||"").trim(),
+    note:(d("d-note")||"").trim(), status:mode, review:"", reviewer:"", updated:stamp()
+  };
+  write(function(){ return S.db.collection("documents").add(body); },
+        mode === "submitted" ? "Submitted for review." : "Saved as draft.");
+  clearDraft("d-"); S.open["doc-form"] = false;
+}
+function decideDoc(){
+  if(!S.act) return;
+  var a = S.act, note = (d("act-note")||"").trim();
+  if(a.verdict === "returned" && !note){ toast("Say what needs changing before returning it."); return; }
+  S.act = null; delete S.draft["act-note"];
+  write(function(){
+    return S.db.doc("documents/"+a.id).update({
+      status:a.verdict, review:note, reviewer:S.me, updated:stamp()
+    });
+  }, a.verdict === "approved" ? "Document approved." : "Returned to the owner.");
+}
+function addDecision(){
+  if(!requireMe()) return;
+  var title = (d("x-title")||"").trim();
+  var proj = d("x-project") || (S.projects[0] && S.projects[0].id);
+  if(!title){ toast("Describe what needs deciding."); return; }
+  if(!proj){ toast("Add a project first."); return; }
+  var p = project(proj);
+  var approver = null;
+  var mgmt = S.members.filter(function(m){ return m.level === "management"; });
+  approver = (p && p.lead && member(p.lead) && member(p.lead).level !== "member") ? p.lead : (mgmt[0] ? mgmt[0].id : null);
+  var body = {
+    title:title, project:proj, raisedBy:S.me, approver:approver,
+    context:(d("x-context")||"").trim(), options:(d("x-options")||"").trim(),
+    recommendation:(d("x-rec")||"").trim(), neededBy:d("x-by"),
+    status:"pending", decidedBy:"", decidedAt:"", note:"", created:stamp()
+  };
+  write(function(){ return S.db.collection("decisions").add(body); }, "Sent to management.");
+  clearDraft("x-"); S.open["dec-form"] = false;
+}
+function decideDecision(){
+  if(!S.act) return;
+  var a = S.act, note = (d("act-note")||"").trim();
+  if(a.verdict !== "approved" && !note){ toast("Add a line of reasoning first."); return; }
+  S.act = null; delete S.draft["act-note"];
+  write(function(){
+    return S.db.doc("decisions/"+a.id).update({
+      status:a.verdict, note:note, decidedBy:S.me, decidedAt:stamp()
+    });
+  }, "Decision recorded.");
+}
+function addMember(){
+  var name = (d("m-name")||"").trim();
+  if(!name){ toast("Enter a name."); return; }
+  write(function(){
+    return S.db.collection("members").add({
+      name:name, role:(d("m-role")||"Team member").trim(), level:d("m-level","member"), added:stamp()
+    });
+  }, "Added to the team.");
+  clearDraft("m-"); S.open["mem-form"] = false;
+}
+function exportCsv(){
+  if(!S.downloads){ toast("Download is not available in this view."); return; }
+  var head = ["Date","Member","Project code","Project","Hours","Progress %","Summary","Blocker"];
+  var q = function(v){ return '"' + String(v == null ? "" : v).replace(/"/g,'""') + '"'; };
+  var rows = S.work.slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); })
+    .map(function(w){ return [w.date, mName(w.member), pCode(w.project), pName(w.project), w.hours, w.progress, w.summary, w.blocker].map(q).join(","); });
+  var csv = head.map(q).join(",") + "\n" + rows.join("\n");
+  S.downloads.save({filename:"chamaria-work-log-"+isoToday()+".csv", data:csv})
+    .then(function(){ toast("Work log saved."); })
+    ["catch"](function(){ toast("Download cancelled."); });
+}
+
+/* ---------------- go ---------------- */
+renderTabs();
+boot();
+setTimeout(function(){ if(!S.ready && !S.dbFailed) setSync("", "Still connecting…"); }, 6000);
+})();
+</script>
